@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using TP_Domain.Entities;
 
 namespace TP_AccessData
 {
@@ -11,5 +9,7 @@ namespace TP_AccessData
         {
 
         }
+
+        public DbSet<Usuario> Usuarios { get; set; }
     }
 }
