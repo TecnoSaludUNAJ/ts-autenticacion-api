@@ -8,7 +8,6 @@ namespace TP_Template_API.Controllers
 {
     [ApiController]
     [Route("api/register")]
-    [Authorize]
     public class RegisterPacienteController : ControllerBase
     {
         private readonly IAutenticationService _service;

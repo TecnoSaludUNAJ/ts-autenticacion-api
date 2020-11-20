@@ -18,6 +18,16 @@ namespace TP_AccessData.Queries
             this.sqlKataCompiler = sqlKataCompiler;
         }
 
+        public Usuario GetUserByDNI(string dni)
+        {
+            var db = new QueryFactory(connection, sqlKataCompiler);
+
+            var query = db.Query("Usuarios")
+                .Where("DNI", "=", dni);
+
+            return query.FirstOrDefault<Usuario>();
+        }
+
         public Usuario GetUserByEmail(string email)
         {
             var db = new QueryFactory(connection, sqlKataCompiler);

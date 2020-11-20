@@ -73,7 +73,7 @@ namespace TP_Application.Services
 
         public ResponseLoginDto Login(RequestLoginDto userInfo)
         {
-            Usuario user = _query.GetUserByEmail(userInfo.Email);
+            Usuario user = _query.GetUserByDNI(userInfo.Dni);
 
             if (user != null && user.Password == Utils.Encryption(userInfo.Password))
             {
@@ -85,7 +85,7 @@ namespace TP_Application.Services
                     new Claim("User", JsonConvert.SerializeObject(user))
                 };
 
-                var identity = new ClaimsIdentity(new GenericIdentity(user.Email, "Auth"), claims);
+                var identity = new ClaimsIdentity(new GenericIdentity(user.DNI, "Auth"), claims);
 
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
@@ -98,10 +98,19 @@ namespace TP_Application.Services
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var createdToken = tokenHandler.CreateToken(tokenDescriptor);
 
-                return new ResponseLoginDto { Token = tokenHandler.WriteToken(createdToken) };
+                ResponseUserLoginDto usuarioResponse = new ResponseUserLoginDto
+                {
+                    Id = user.Id,
+                    Nombres = user.Nombres,
+                    Apellidos = user.Apellidos,
+                    DNI = user.DNI,
+                    Rol = user.Rol
+                };
+
+                return new ResponseLoginDto { Token = tokenHandler.WriteToken(createdToken), Usuario = usuarioResponse };
             }
 
-            throw new Exception("El email o contraseña ingresado es incorrecto");
+            throw new Exception("El DNI o contraseña ingresado es incorrecto");
         }
     }
 }

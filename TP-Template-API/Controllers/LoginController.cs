@@ -8,7 +8,6 @@ namespace TP_Template_API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
     public class LoginController:ControllerBase
     {
         private readonly IAutenticationService _service;
