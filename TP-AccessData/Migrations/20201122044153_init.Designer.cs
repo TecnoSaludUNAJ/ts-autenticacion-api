@@ -9,8 +9,8 @@ using TP_AccessData;
 namespace TP_AccessData.Migrations
 {
     [DbContext(typeof(TemplateDbContext))]
-    [Migration("20201114192511_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20201122044153_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -19,6 +19,38 @@ namespace TP_AccessData.Migrations
                 .HasAnnotation("ProductVersion", "3.1.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("TP_Domain.Entities.Rol", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Nombre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Rols");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Nombre = "Administrador"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Nombre = "Profesional"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Nombre = "Paciente"
+                        });
+                });
 
             modelBuilder.Entity("TP_Domain.Entities.Usuario", b =>
                 {
@@ -42,18 +74,29 @@ namespace TP_AccessData.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Rol")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("RolId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Sexo")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Telefono")
-                        .HasColumnType("int");
+                    b.Property<string>("Telefono")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("RolId");
+
                     b.ToTable("Usuarios");
+                });
+
+            modelBuilder.Entity("TP_Domain.Entities.Usuario", b =>
+                {
+                    b.HasOne("TP_Domain.Entities.Rol", "Rol")
+                        .WithMany()
+                        .HasForeignKey("RolId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

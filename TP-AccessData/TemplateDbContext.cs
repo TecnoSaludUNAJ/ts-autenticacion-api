@@ -11,5 +11,14 @@ namespace TP_AccessData
         }
 
         public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Rol> Rols { get; set; }
+
+        // role set 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Rol>().HasData(new Rol() { Id = 1, Nombre = "Administrador" });
+            modelBuilder.Entity<Rol>().HasData(new Rol() { Id = 2, Nombre = "Profesional" });
+            modelBuilder.Entity<Rol>().HasData(new Rol() { Id = 3, Nombre = "Paciente" });
+        }
     }
 }

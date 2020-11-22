@@ -8,6 +8,6 @@ namespace TP_Domain.DTOs
         public string Nombres { get; set; }
         public string Apellidos { get; set; }
         public string DNI { get; set; }
-        public string Rol { get; set; }
+        public int RolId { get; set; }
     }
 }

@@ -15,7 +15,7 @@ namespace TP_Application.Services
 {
     public interface IAutenticationService
     {
-        ResponseUserDto RegisterUser(RequestRegisterDto userInfo, string rol = Constants.PACIENTE);
+        ResponseUserDto RegisterUser(RequestRegisterDto userInfo, int rol = Constants.PACIENTE);
         ResponseUserDto RegisterAdministrador(RequestRegisterDto userInfo);
         ResponseUserDto RegisterProfesional(RequestRegisterDto userInfo);
         ResponseLoginDto Login(RequestLoginDto userInfo);
@@ -32,7 +32,7 @@ namespace TP_Application.Services
             _configuration = configuration;
         }
 
-        public ResponseUserDto RegisterUser(RequestRegisterDto userInfo, string rol = Constants.PACIENTE)
+        public ResponseUserDto RegisterUser(RequestRegisterDto userInfo, int rol = Constants.PACIENTE)
         {
             Usuario entity = new Usuario
             {
@@ -43,7 +43,7 @@ namespace TP_Application.Services
                 Email = userInfo.Email,
                 Telefono = userInfo.Telefono,
                 Password = Utils.Encryption(userInfo.Password),
-                Rol = rol,
+                RolId = rol,
             };
 
             _repository.Add<Usuario>(entity);
@@ -57,7 +57,7 @@ namespace TP_Application.Services
                 Sexo = entity.Sexo,
                 Email = entity.Email,
                 Telefono = entity.Telefono,
-                Rol = entity.Rol,
+                RolId = entity.RolId,
             };
         }
 
@@ -104,7 +104,7 @@ namespace TP_Application.Services
                     Nombres = user.Nombres,
                     Apellidos = user.Apellidos,
                     DNI = user.DNI,
-                    Rol = user.Rol
+                    RolId = user.RolId
                 };
 
                 return new ResponseLoginDto { Token = tokenHandler.WriteToken(createdToken), Usuario = usuarioResponse };
