@@ -32,7 +32,7 @@ namespace TP_Template_API.Controllers
 
     [ApiController]
     [Route("api/register/profesional")]
-    [Authorize]
+    //[Authorize]
     public class RegisterProfesionalController : ControllerBase
     {
         private readonly IAutenticationService _service;
