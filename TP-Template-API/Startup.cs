@@ -85,7 +85,7 @@ namespace TP_Template_API
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection(); TEMPORAL- FIX LATER
 
             app.UseRouting();
 
@@ -103,7 +103,7 @@ namespace TP_Template_API
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Template API V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Autenticacion API V1");
             });
         }
     }

@@ -57,7 +57,7 @@ namespace TP_Template_API.Controllers
 
     [ApiController]
     [Route("api/register/administrator")]
-    [Authorize]
+    //[Authorize]
     public class RegisterAdministratorController : ControllerBase
     {
         private readonly IAutenticationService _service;
